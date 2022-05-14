@@ -14,4 +14,9 @@ const Template: ComponentStory<typeof AuthPage> = (args) => (
   <AuthPage {...args} />
 );
 
-export const Default = Template.bind({});
+export const SignUp = Template.bind({});
+
+export const SignIn = Template.bind({});
+SignIn.args = {
+  isSignIn: true,
+};

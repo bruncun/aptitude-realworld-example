@@ -1,18 +1,20 @@
 import { Header } from "components/Header/Header.component";
 import { Footer } from "components/Footer/Footer.component";
 
-export type AuthPageProps = {};
+export type AuthPageProps = {
+  isSignIn?: true;
+};
 
-export const AuthPage = ({}: AuthPageProps): JSX.Element => (
+export const AuthPage = ({ isSignIn }: AuthPageProps): JSX.Element => (
   <>
     <Header />
     <div className="auth-page">
       <div className="container page">
         <div className="row">
           <div className="col-md-6 col-md-offset-3 col-xs-12">
-            <h1 className="text-xs-center">Sign up</h1>
+            <h1 className="text-xs-center">Sign {isSignIn ? "In" : "Up"}</h1>
             <p className="text-xs-center">
-              <a href="#">Have an account?</a>
+              <a href="#">{isSignIn ? "Need" : "Have"} an account?</a>
             </p>
 
             {/*<ul className="error-messages">
@@ -20,13 +22,15 @@ export const AuthPage = ({}: AuthPageProps): JSX.Element => (
         </ul> */}
 
             <form>
-              <fieldset className="form-group">
-                <input
-                  className="form-control form-control-lg"
-                  type="text"
-                  placeholder="Your Name"
-                />
-              </fieldset>
+              {!isSignIn && (
+                <fieldset className="form-group">
+                  <input
+                    className="form-control form-control-lg"
+                    type="text"
+                    placeholder="Your Name"
+                  />
+                </fieldset>
+              )}
               <fieldset className="form-group">
                 <input
                   className="form-control form-control-lg"
@@ -42,7 +46,7 @@ export const AuthPage = ({}: AuthPageProps): JSX.Element => (
                 />
               </fieldset>
               <button className="btn btn-lg btn-primary pull-xs-right">
-                Sign up
+                Sign {isSignIn ? "in" : "up"}
               </button>
             </form>
           </div>
