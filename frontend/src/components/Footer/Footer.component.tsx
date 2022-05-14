@@ -1,0 +1,16 @@
+export type FooterProps = {};
+
+export const Footer = ({}: FooterProps): JSX.Element => (
+  <footer>
+    <div className="container">
+      <a href="/" className="logo-font">
+        conduit
+      </a>
+      <span className="attribution">
+        An interactive learning project from{" "}
+        <a href="https://thinkster.io">Thinkster</a>. Code & design licensed
+        under MIT.
+      </span>
+    </div>
+  </footer>
+);
