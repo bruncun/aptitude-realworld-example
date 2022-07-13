@@ -20,3 +20,8 @@ export const SignIn = Template.bind({});
 SignIn.args = {
   isSignIn: true,
 };
+
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
+};

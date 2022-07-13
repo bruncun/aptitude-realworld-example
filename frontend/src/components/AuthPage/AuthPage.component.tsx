@@ -3,19 +3,23 @@ import { Footer } from "components/Footer/Footer.component";
 import {
   ConduitFeaturesUsersCreateUserData,
   ConduitFeaturesUsersLoginUserData,
-} from "../../../types/api";
+} from "types/models";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 export type AuthPageState =
   | ConduitFeaturesUsersLoginUserData
   | ConduitFeaturesUsersCreateUserData;
 export type AuthPageProps = {
-  isSignIn?: true;
+  errors?: {};
+  isSignIn?: boolean;
+  isLoading?: boolean;
   onFormSubmit: (state: AuthPageState) => void;
 };
 
 export const AuthPage = ({
+  errors,
   isSignIn,
+  isLoading,
   onFormSubmit,
 }: AuthPageProps): JSX.Element => {
   const [state, setState] = useState<AuthPageState>({
@@ -23,9 +27,11 @@ export const AuthPage = ({
     email: "",
     password: "",
   });
+
   const handleInputChange = ({
     target: { name, value },
   }: ChangeEvent<HTMLInputElement>) => setState({ ...state, [name]: value });
+
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
     onFormSubmit(state);
@@ -42,11 +48,13 @@ export const AuthPage = ({
               <p className="text-xs-center">
                 <a href="#">{isSignIn ? "Need" : "Have"} an account?</a>
               </p>
-
-              {/*<ul className="error-messages">
-          <li>That email is already taken</li>
-        </ul> */}
-
+              {errors && (
+                <ul className="error-messages">
+                  {Object.entries(errors).map(([field, message], index) => (
+                    <li key={index}>{`${field} - ${message}`}</li>
+                  ))}
+                </ul>
+              )}
               <form onSubmit={handleFormSubmit}>
                 {!isSignIn && (
                   <fieldset className="form-group">
@@ -77,7 +85,10 @@ export const AuthPage = ({
                     onChange={handleInputChange}
                   />
                 </fieldset>
-                <button className="btn btn-lg btn-primary pull-xs-right">
+                <button
+                  className="btn btn-lg btn-primary pull-xs-right"
+                  disabled={isLoading}
+                >
                   Sign {isSignIn ? "in" : "up"}
                 </button>
               </form>
